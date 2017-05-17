@@ -114,7 +114,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, IColle
 }
 ```
 
-5. Choose **Integrate** > **New Output** > **Azure Queue Blob** 
+5. Choose **Integrate** > **New Output** > **Azure Queue Storage** 
 
 6. Enter `queue` as **Message Parameter name**
 

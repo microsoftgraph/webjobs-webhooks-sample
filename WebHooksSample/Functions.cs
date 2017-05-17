@@ -88,7 +88,7 @@ namespace WebHooksSample
                     subscriptionId);
 
                 using (HttpRequestMessage message = new HttpRequestMessage(
-                                        HttpMethod.Post,
+                                        HttpMethod.Get,
                                         subscriptionsUrl))
                 {
                     message.Headers.Authorization = new AuthenticationHeaderValue(

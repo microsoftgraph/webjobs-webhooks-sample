@@ -47,7 +47,6 @@ To use the Microsoft Graph Webhooks sample using WebJobs SDK, you need the follo
 1. When the **Register an application page** appears, enter your app's registration information:
    1. In the **Name** section, enter a meaningful name that will be displayed to users of the app. For example: `MyWebApp`
    1. In the **Supported account types** section, select **Accounts in any organizational directory and personal Microsoft accounts (e.g. Skype, Xbox, Outlook.com)**.
-      > If there are more than one redirect URIs, you'll need to add these from the **Authentication** tab later after the app has been successfully created.
 1. Select **Register** to create the app.
 1. On the app's **Overview** page, find the **Application (client) ID** value and record it for later. You'll need this value to configure the Visual Studio configuration file for this project.
 1. In the list of pages for the app, select **Authentication**.

@@ -18,7 +18,7 @@ namespace WebHooksSample
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.IdentityModel.Clients.ActiveDirectory;
+    using Microsoft.Identity.Client;
 
     /// <summary>
     /// This class will include all functions responsible for managing microsoft graph webhook subscriptions and 
@@ -42,6 +42,7 @@ namespace WebHooksSample
         private static readonly string ClientSecret = ConfigurationManager.AppSettings["clientSecret"];
         private static readonly string TenantId = ConfigurationManager.AppSettings["tenantId"];
         private static readonly string NotificationUrl = ConfigurationManager.AppSettings["notificationurl"];
+        private static readonly string RedirectUri = ConfigurationManager.AppSettings["redirecturi"];
         private static readonly HttpMethod HttpMethodPatch = new HttpMethod("PATCH");
         
         /// <summary>
@@ -62,14 +63,19 @@ namespace WebHooksSample
             // Step#1: Obtain App only auth token
             string authority = string.Format(
                 CultureInfo.InvariantCulture,
-                "https://login.windows.net/{0}",
-                Functions.TenantId);
+                "https://login.microsoftonline.com/{0}",
+                Functions.TenantId);                       
 
-            ClientCredential clientCredential = new ClientCredential(Functions.ClientId, Functions.ClientSecret);
+            ClientCredential clientCredential = new ClientCredential(Functions.ClientSecret);
 
-            AuthenticationContext context = new AuthenticationContext(authority);
-            AuthenticationResult authenticationResult = await context.AcquireTokenAsync(Functions.ResourceMicrosoftGraph, clientCredential);
-            
+            var app = new ConfidentialClientApplication(Functions.ClientId, authority,
+                                            RedirectUri, clientCredential, null, new TokenCache());
+
+            string[] scopes = new string[] { "https://graph.microsoft.com/.default" };
+
+            AuthenticationResult authenticationResult = null;
+            authenticationResult = await app.AcquireTokenForClientAsync(scopes);
+
             // Step#2: Check if a subscription already exists from a cache. We are using blob storage to cache the subscriptionId.
             // If a subscription doesn't exist in blob store, then we need to create one.
             BlobAttribute blobAttributeRead = new BlobAttribute(Functions.SubscriptionBlobName, FileAccess.Read);
@@ -91,12 +97,10 @@ namespace WebHooksSample
                                         HttpMethod.Get,
                                         subscriptionsUrl))
                 {
-                    message.Headers.Authorization = new AuthenticationHeaderValue(
-                                authenticationResult.AccessTokenType,
-                                authenticationResult.AccessToken);
+                    message.Headers.Authorization = AuthenticationHeaderValue
+                                                    .Parse(authenticationResult.CreateAuthorizationHeader());
 
-                    HttpResponseMessage response = await Functions.Client.SendAsync(
-                        message);
+                    HttpResponseMessage response = await Functions.Client.SendAsync(message);
                     subscriptionExists = response.IsSuccessStatusCode;                    
                 }
             }
@@ -119,12 +123,10 @@ namespace WebHooksSample
                         Encoding.UTF8,
                         Functions.ContentTypeApplicationJson);
 
-                    message.Headers.Authorization = new AuthenticationHeaderValue(
-                        authenticationResult.AccessTokenType,
-                        authenticationResult.AccessToken);
+                    message.Headers.Authorization = AuthenticationHeaderValue
+                                                    .Parse(authenticationResult.CreateAuthorizationHeader());
 
-                    HttpResponseMessage response = await Functions.Client.SendAsync(
-                        message);
+                    HttpResponseMessage response = await Functions.Client.SendAsync(message);
                     response.EnsureSuccessStatusCode();
                     subscription = await response.Content.ReadAsAsync<Subscription>();
 
@@ -149,10 +151,9 @@ namespace WebHooksSample
                         JsonConvert.SerializeObject(update),
                         Encoding.UTF8,
                         Functions.ContentTypeApplicationJson);
-
-                    message.Headers.Authorization = new AuthenticationHeaderValue(
-                        authenticationResult.AccessTokenType,
-                        authenticationResult.AccessToken);
+                    
+                    message.Headers.Authorization = AuthenticationHeaderValue
+                                                    .Parse(authenticationResult.CreateAuthorizationHeader());
 
                     HttpResponseMessage response = await Functions.Client.SendAsync(message);
                     response.EnsureSuccessStatusCode();

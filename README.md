@@ -21,7 +21,7 @@ This sample subscribes to the `Users` resource for `updated` and `deleted` chang
 
 To use the Microsoft Graph Webhooks sample using WebJobs SDK, you need the following:
 
-* Visual Studio 2015 installed on your development computer. 
+* Visual Studio 2017 installed on your development computer. 
 
 * A [work or school account](http://dev.office.com/devprogram).
 
@@ -66,7 +66,20 @@ To use the Microsoft Graph Webhooks sample using WebJobs SDK, you need the follo
    1. In the **Application permissions** section, make sure that the **Directory.Read.All** permission is checked. Use the search box if necessary.
    1. Select the **Add permissions** button.
 
-### Set up Azure function
+1. From the **Manage** page, select **API permissions** > **Add a permission**.
+
+    ![A screenshot of Select API Permissions](readme-images/aad-api-permissions.PNG)
+
+1. Choose **Microsoft API** > **Microsoft Graph**.
+
+    ![A screenshot of Request API permissions](readme-images/aad-request-api-permissions.PNG)
+
+1. Choose **Application permissions**. In the search box, type **directory.read.all** and select the first option from the list. Select **Add permissions**.
+
+    ![A screenshot of Delegated permissions](readme-images/aad-application-permissions.PNG)
+
+
+## Set up Azure function
 You must expose a public HTTPS endpoint to create a subscription and receive notifications from Microsoft Graph. You can use Azure Functions for the same.
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/) using your work or school account.
@@ -118,7 +131,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, IColle
 
 10. Choose on **Get function URL** to copy the notification url to be used in the sample.
 
-### Setup sample project
+## Setup sample project
 
 1. In Solution Explorer, select the **App.config** project.
 
@@ -132,7 +145,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, IColle
 	
 	e. For the **notificationurl** key, replace *ENTER_YOUR_NOTIFICATION_URL* with URL of Azure function.
 
-### Use the sample App
+## Use the sample App
 1. Press **F5** to start your sample.
 
 2. Wait for sample to print the message **Created new subscription with id:**
@@ -181,4 +194,4 @@ If you have a feature suggestion, please post your idea on our [User Voice](http
 * [Microsoft Graph developer site](https://developer.microsoft.com/en-us/graph/)
 * [Call Microsoft Graph in an ASP.NET MVC app](https://developer.microsoft.com/en-us/graph/docs/platform/aspnetmvc)
 
-Copyright (c) 2017 Microsoft Corporation. All rights reserved.
+Copyright (c) 2019 Microsoft Corporation. All rights reserved.

@@ -31,40 +31,40 @@ To use the Microsoft Graph Webhooks sample using WebJobs SDK, you need the follo
 
 * An Azure storage account that will be used by [Azure WebJobs SDK](https://docs.microsoft.com/en-us/azure/app-service-web/websites-dotnet-webjobs-sdk) 
 
-## Register the app
+### Create your app
 
+#### Choose the tenant where you want to create your app
 
-You will create a new Azure AD web application registration using the Azure Active Directory admin center.
+1. Sign in to the [Azure portal](https://portal.azure.com) using either a work or school account.
+1. If your account is present in more than one Azure AD tenant:
+   1. Select your profile from the menu on the top right corner of the page, and then **Switch directory**.
+   1. Change your session to the Azure AD tenant where you want to create your application.
 
-1. Open a browser and navigate to the [Azure Active Directory admin center](https://aad.portal.azure.com). Login using a **Work or School Account**.
+#### Register the app
 
-1. Select **Azure Active Directory** in the left-hand navigation, then select **App registrations (Preview)** under **Manage**.
+1. Navigate to the [Azure portal > App registrations](https://go.microsoft.com/fwlink/?linkid=2083908) to register your app.
+1. Select **New registration**.
+1. When the **Register an application page** appears, enter your app's registration information:
+   1. In the **Name** section, enter a meaningful name that will be displayed to users of the app. For example: `MyWebApp`
+   1. In the **Supported account types** section, select **Accounts in any organizational directory and personal Microsoft accounts (e.g. Skype, Xbox, Outlook.com)**.
+1. Select **Register** to create the app.
+1. On the app's **Overview** page, find the **Application (client) ID** value and record it for later. You'll need this value to configure the Visual Studio configuration file for this project.
+1. In the list of pages for the app, select **Authentication**.
+   1. In the **Redirect URIs** section, select **Web** in the combo-box and enter the following redirect URIs:
+       - `https://mysigninurl`
+1. Select **Save**.
+1. From the **Certificates & secrets** page, in the **Client secrets** section, choose **New client secret**.
+   1. Enter a key description (of instance `app secret`).
+   1. Select a key duration of either **In 1 year**, **In 2 years**, or **Never Expires**.
+   1. When you click the **Add** button, the key value will be displayed. Copy the key value and save it in a safe location.
 
-    ![A screenshot of the App registrations ](readme-images/aad-portal-app-registrations.png)
+      You'll need this key later to configure the project in Visual Studio. This key value will not be displayed again, nor retrievable by any other means, so record it as soon as it is visible from the Azure portal.
 
-1. Select **New registration**. On the **Register an application** page, set the values as follows.
-
-    - Set a preferred **Name** e.g. `Webjobs Sample`.
-    - Set **Supported account types** to **Accounts in any organizational directory**.
-    - Under **Redirect URI**, set the first drop-down to `Web` and set the value to https://mysigninurl.
-
-    ![A screenshot of the Register an application page](readme-images/aad-register-an-app.png)
-
-1. Choose **Register**. On the **Webjobs Sample** page, copy the value of the **Application (client) ID** and save it, you will need it in the next step.
-
-    ![A screenshot of the application ID of the new app registration](readme-images/aad-application-id.PNG)
-
-
-1. Select **Certificates & secrets** under **Manage**. Select the **New client secret** button. Enter a value in **Description** and select one of the options for **Expires** and choose **Add**.
-
-    ![A screenshot of the Add a client secret dialog](readme-images/aad-new-client-secret.png)
-
-1. Copy the client secret value before you leave this page. You will need it in the next step.
-
-    > [!IMPORTANT]
-    > This client secret is never shown again, so make sure you copy it now.
-
-    ![A screenshot of the newly added client secret](readme-images/aad-copy-client-secret.png)
+1. In the list of pages for the app, select **API permissions**.
+   1. Click the **Add a permission** button and then make sure that the **Microsoft APIs** tab is selected.
+   1. In the **Commonly used Microsoft APIs** section, select **Microsoft Graph**.
+   1. In the **Application permissions** section, make sure that the **Directory.Read.All** permission is checked. Use the search box if necessary.
+   1. Select the **Add permissions** button.
 
 1. From the **Manage** page, select **API permissions** > **Add a permission**.
 

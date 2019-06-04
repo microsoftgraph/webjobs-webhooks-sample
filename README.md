@@ -50,7 +50,7 @@ To use the Microsoft Graph Webhooks sample using WebJobs SDK, you need the follo
    1. In the **Name** section, enter a meaningful name that will be displayed to users of the app. For example: `MyWebApp`
    1. In the **Supported account types** section, select **Accounts in any organizational directory and personal Microsoft accounts (e.g. Skype, Xbox, Outlook.com)**.
 1. Select **Register** to create the app.
-![Register an app](readme-images/aad-register-an-app.PNG)
+  ![Register an app](readme-images/aad-register-an-app.png)
 1. On the app's **Overview** page, find the **Application (client) ID** value and record it for later. You'll need this value to configure the Visual Studio configuration file for this project.
   ![Application ID](readme-images/aad-application-id.PNG)
 1. In the list of pages for the app, select **Authentication**.
@@ -61,10 +61,11 @@ To use the Microsoft Graph Webhooks sample using WebJobs SDK, you need the follo
 1. From the **Certificates & secrets** page, in the **Client secrets** section, choose **New client secret**.
    1. Enter a key description (of instance `app secret`).
    1. Select a key duration of either **In 1 year**, **In 2 years**, or **Never Expires**.
+     ![Client Secret](readme-images/aad-new-client-secret.png)
    1. When you click the **Add** button, the key value will be displayed. Copy the key value and save it in a safe location.
-
+    ![Client Secret](readme-images/aad-copy-client-secret.png)
       You'll need this key later to configure the project in Visual Studio. This key value will not be displayed again, nor retrievable by any other means, so record it as soon as it is visible from the Azure portal.
-      ![Client Secret](readme-images/aad-copy-client-secret.PNG)
+      
 
 1. In the list of pages for the app, select **API permissions**.
    1. Click the **Add a permission** button and then make sure that the **Microsoft APIs** tab is selected.

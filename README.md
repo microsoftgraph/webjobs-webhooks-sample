@@ -7,7 +7,7 @@ languages:
 extensions:
   contentType: samples
   technologies:
-  - Microsoft Graph
+  - Microsoft Graph 
   services:
   - Users
   createdDate: 5/10/2017 5:24:11 PM

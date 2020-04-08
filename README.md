@@ -1,19 +1,3 @@
----
-page_type: sample
-description: "This Azure WebJobs sample shows how to start getting notifications from Microsoft Graph."
-products:
-- ms-graph
-languages:
-- csharp
-extensions:
-  contentType: samples
-  technologies:
-  - Microsoft Graph 
-  services:
-  - Users
-  createdDate: 5/10/2017 5:24:11 PM
----
-
 # Microsoft Graph Webhooks sample using WebJobs SDK
 Subscribe for [Microsoft Graph webhooks](https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/webhooks) to be notified when your user's data changes so you don't have to poll for changes.
 
